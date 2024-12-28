@@ -44,10 +44,12 @@ function saveCivilians()
             if prompt then
                 -- Wait for ProximityPrompt to be interactable
                 repeat
-                    fireproximityprompt(prompt)
-                    wait(0.1)
                     player.Character.HumanoidRootPart.CFrame = CFrame.new(humanoidRootPart.Position)
+                    print('tping')
                     wait(0.1) -- wait for teleportation to complete
+                    fireproximityprompt(prompt)
+                    print('grabbing')
+                    wait(0.1)
                 until not v:FindFirstChildWhichIsA("ProximityPrompt") or not humanoidRootPart:FindFirstChild("QuestMarker")
                 
                 -- After saving, teleport back to spawn
@@ -55,6 +57,7 @@ function saveCivilians()
                     local spawnLocation = workspace.Map.Parts.SpawnLocation.Position
                     player.Character.HumanoidRootPart.CFrame = CFrame.new(spawnLocation)
                     wait(0.1) -- wait for the teleportation to complete
+                    print('giving up')
                 until v.Parent == nil
             end
         else
@@ -151,7 +154,7 @@ if config.mode == "Investigation" then
     -- Handle quests
 	game:GetService("Players").LocalPlayer.PlayerGui.StorylineDialogue.Frame.QuestFrame.QuestInfo.Task.Description:GetPropertyChangedSignal("Text"):Connect(function()
 		player.Character.HumanoidRootPart.CFrame = CFrame.new(workspace.Map.Parts.SpawnLocation.Position) + Vector3.new(0,55,0)
-		task.wait(10)
+		task.wait(5)
         doQuest()
     end)
 end
