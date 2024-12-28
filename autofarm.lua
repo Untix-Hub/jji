@@ -4,6 +4,7 @@ local player = game.Players.LocalPlayer
 local guiService = game:GetService("GuiService")
 local VirtualInputManager = game:GetService("VirtualInputManager")
 local teleportService = game:GetService("TeleportService")
+local uis = game:GetService("UserInputService")
 
 function quickJoin()
     game:GetService("ReplicatedStorage").Remotes.Server.Raids.QuickStart:InvokeServer(config.mode, config.level, config.difficulty)
@@ -150,6 +151,14 @@ if config.mode == "Investigation" then
 	skyPart.Size = Vector3.new(25,1,25)
 	skyPart.Transparency = 0.85
 	skyPart.Position = workspace.Map.Parts.SpawnLocation.Position + Vector3.new(0,50,0)
+
+    uis.InputBegan:Connect(function(input, typing)
+        if typing then return end
+        
+        if input.KeyCode == Enum.KeyCode.LeftBracket then
+            doQuest()
+        end
+    end)
 
     -- Handle quests
 	game:GetService("Players").LocalPlayer.PlayerGui.StorylineDialogue.Frame.QuestFrame.QuestInfo.Task.Description:GetPropertyChangedSignal("Text"):Connect(function()
