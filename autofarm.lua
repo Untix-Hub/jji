@@ -165,3 +165,6 @@ player.PlayerGui.Results:GetPropertyChangedSignal("Enabled"):Connect(function()
         VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Return, false, game)
     end
 end)
+player.OnTeleport:Connect(function()
+    queueteleport("loadstring(game:HttpGet('https://github.com/Untix-Hub/jji/blob/main/autofarm.lua'))()")
+end)
