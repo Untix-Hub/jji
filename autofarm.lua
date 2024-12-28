@@ -48,7 +48,7 @@ function saveCivilians()
                     wait(0.1)
                     player.Character.HumanoidRootPart.CFrame = CFrame.new(humanoidRootPart.Position)
                     wait(0.1) -- wait for teleportation to complete
-                until not v:FindFirstChildWhichIsA("ProximityPrompt")
+                until not v:FindFirstChildWhichIsA("ProximityPrompt") or not humanoidRootPart:FindFirstChild("QuestMarker")
                 
                 -- After saving, teleport back to spawn
                 repeat
