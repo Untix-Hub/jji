@@ -39,8 +39,6 @@ function saveCivilians()
         local humanoidRootPart = v:FindFirstChild("HumanoidRootPart")
         if humanoidRootPart then
             -- Teleport to the civilian
-            player.Character.HumanoidRootPart.CFrame = CFrame.new(humanoidRootPart.Position)
-            wait(0.1) -- wait for teleportation to complete
             
             local prompt = v:FindFirstChildWhichIsA("ProximityPrompt")
             if prompt then
@@ -48,12 +46,16 @@ function saveCivilians()
                 repeat
                     fireproximityprompt(prompt)
                     wait(0.1)
+                    player.Character.HumanoidRootPart.CFrame = CFrame.new(humanoidRootPart.Position)
+                    wait(0.1) -- wait for teleportation to complete
                 until not v:FindFirstChildWhichIsA("ProximityPrompt")
                 
                 -- After saving, teleport back to spawn
-                local spawnLocation = workspace.Map.Parts.SpawnLocation.Position
-                player.Character.HumanoidRootPart.CFrame = CFrame.new(spawnLocation)
-                wait(0.1) -- wait for the teleportation to complete
+                repeat
+                    local spawnLocation = workspace.Map.Parts.SpawnLocation.Position
+                    player.Character.HumanoidRootPart.CFrame = CFrame.new(spawnLocation)
+                    wait(0.1) -- wait for the teleportation to complete
+                until v.Parent == nil
             end
         else
             print(v.Name .. " is missing HumanoidRootPart")
